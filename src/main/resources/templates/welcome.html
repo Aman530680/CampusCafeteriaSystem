@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Campus Cafeteria</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        /* General Layout */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #e6f7f2; /* Light mint background */
+            margin: 0;
+            padding: 0;
+        }
+        .welcome-card {
+            text-align: center;
+            padding: 60px 40px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Soft, prominent shadow */
+            max-width: 500px;
+            width: 90%;
+        }
+
+        /* Typography and Header */
+        .welcome-card h1 {
+            color: #1a7566; /* Deep teal for the main title */
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .welcome-card p {
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        /* Buttons Container */
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Button Styling */
+        .button-group a {
+            flex-grow: 1;
+            padding: 15px 25px;
+            text-decoration: none;
+            color: white;
+            font-size: 1.05rem;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 180px;
+        }
+
+        /* Staff Button (Primary - for management) */
+        #staff-login {
+            background-color: #4CAF50; /* Green */
+        }
+        #staff-login:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Student Button (Secondary - for users) */
+        #student-login {
+            background-color: #2196F3; /* Blue */
+        }
+        #student-login:hover {
+            background-color: #0c7cd5;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+<div class="welcome-card">
+    <h1>Campus Cafeteria System</h1>
+    <p>Hello, Welcome to Cafeteria! Please select your role to proceed to login or management.</p>
+
+    <div class="button-group">
+        <a th:href="@{/login}" id="student-login">Student Login</a>
+        <a th:href="@{/login}" id="staff-login">Staff Login</a>
+    </div>
+</div>
+</body>
+</html>

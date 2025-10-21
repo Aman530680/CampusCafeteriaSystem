@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sales Management</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <div class="container clearfix">
+        <h1>Sales Management</h1>
+        <a th:href="@{/dashboard}" style="float:right; margin-top: -30px;">Back to Dashboard</a>
+    </div>
+</header>
+<div class="container">
+
+    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+    <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+    <h2>Record New Sale</h2>
+    <form th:action="@{/sales/record}" method="post">
+        <label for="userId">Buyer (User):</label>
+        <select id="userId" name="userId" required>
+            <option value="">-- Select User --</option>
+            <option th:each="user : ${users}"
+                    th:value="${user.userId}"
+                    th:text="${user.name} + ' (' + ${user.email} + ')'">
+                User Name (Email)
+            </option>
+        </select><br>
+
+        <label for="itemId">Menu Item:</label>
+        <select id="itemId" name="itemId" required>
+            <option value="">-- Select Item --</option>
+            <option th:each="item : ${menuItems}"
+                    th:value="${item.itemId}"
+                    th:text="${item.name} + ' - $' + ${#numbers.formatDecimal(item.price, 1, 2)}">
+                Item Name - $Price
+            </option>
+        </select><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" required><br>
+
+        <button type="submit">Record Purchase</button>
+    </form>
+
+    <h2>All Sales Records</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Sale ID</th>
+            <th>User</th>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Total Amount</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sale : ${sales}">
+            <td th:text="${sale.saleId}">101</td>
+            <td th:text="${sale.user.name}">User Name</td>
+            <td th:text="${sale.menuItem.name}">Item Name</td>
+            <td th:text="${sale.quantity}">2</td>
+            <td th:text="${#numbers.formatDecimal(sale.totalAmount, 1, 2)}">10.00</td>
+            <td th:text="${#temporals.format(sale.purchaseDate, 'dd-MMM-yyyy HH:mm')}">2024-01-01 10:00</td>
+            <td>
+                <a th:href="@{/sales/delete/{id}(id=${sale.saleId})}" onclick="return confirm('Are you sure you want to delete this sale record?');">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

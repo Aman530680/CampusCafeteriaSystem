@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cafeteria Dashboard</title>
+    <!-- Links to the shared CSS file -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        /* Specific dashboard layout styles */
+        .summary-card {
+            background: #e9ecef;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        .summary-item {
+            flex-basis: 30%;
+            border-left: 3px solid #4CAF50;
+            padding-left: 15px;
+        }
+        .summary-item h3 { color: #4CAF50; }
+        .sidebar { float: left; width: 20%; padding: 15px; background: #f8f9fa; border-right: 1px solid #ddd; }
+        .sidebar ul { list-style: none; padding: 0; }
+        .sidebar li a { display: block; padding: 10px 0; text-decoration: none; color: #333; }
+        .sidebar li a:hover { color: #4CAF50; }
+        .main-content { float: right; width: 75%; padding: 15px; }
+        .clearfix::after { content: ""; clear: both; display: table; }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container clearfix">
+        <h1>Campus Cafeteria Management</h1>
+        <!-- Logout Button -->
+        <form th:action="@{/logout}" method="post" style="float:right; margin-top: -30px;">
+            <button type="submit" style="background: #f44336;">Logout</button>
+        </form>
+    </div>
+</header>
+
+<div class="container clearfix">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h3>Navigation</h3>
+        <ul>
+            <li><a th:href="@{/dashboard}">🏠 Dashboard</a></li>
+            <li><a th:href="@{/users}">👥 Users Management</a></li>
+            <li><a th:href="@{/menu}">🍽️ Menu Management</a></li>
+            <li><a th:href="@{/sales}">💰 Sales Management</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <!-- Welcome banner: "Welcome, <username>!" -->
+        <h2>Welcome, <span th:text="${username}">User</span>!</h2>
+        <hr/>
+
+        <!-- Top Summary: Displaying data from the controller Model -->
+        <div class="summary-card">
+            <div class="summary-item">
+                <h3>Total Users</h3>
+                <p th:text="${totalUsers}">0</p>
+            </div>
+            <div class="summary-item">
+                <h3>Total Menu Items</h3>
+                <p th:text="${totalMenuItems}">0</p>
+            </div>
+            <div class="summary-item">
+                <h3>Total Sales Amount</h3>
+                <!-- Formatting the BigDecimal number to two decimal places -->
+                <p>$<span th:text="${#numbers.formatDecimal(totalSalesAmount, 1, 2)}">0.00</span></p>
+            </div>
+        </div>
+
+        <h3>System Overview</h3>
+        <p>Use the navigation links in the sidebar to manage users, menu items, and sales records.</p>
+    </div>
+</div>
+</body>
+</html>
